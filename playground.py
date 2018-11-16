@@ -1,11 +1,12 @@
 # playground.py
 
 import constants
+import json
 from difflib import get_close_matches
 
 print('This is an english dictionary.')
 
-dictionary = constants.data
+dictionary = json.load(open(constants.fname, 'r'))
 while True:
     word = input('Enter a word("q" to exit the program): ')
     if word == 'q':
@@ -35,11 +36,11 @@ while True:
     else:
         output = dictionary[word]
         if len(output) == 1:
-            print(f'\n"{word}":')
+            print(f'"{word}":')
             print(f'   {output[0]}')
             print()
         else:
-            print(f'\n"{word}" has multiple meanings:')
+            print(f'"{word}" has multiple meanings:')
             for i in range(1, len(output)+1):
                 print(f'   {i}.', output[i-1])
             print()
