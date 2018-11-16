@@ -10,8 +10,15 @@ while True:
     word = input('Enter a word("q" to exit the program): ')
     if word == 'q':
         break
+
     if word in dictionary:
         print(dictionary[word])
+    elif word.capitalize() in dictionary:
+        print(dictionary[word.capitalize()])
+    elif word.lower() in dictionary:
+        print(dictionary[word.lower()])
+    elif word.upper() in dictionary:
+        print(dictionary[word.upper()])
     else:
         closest_word = get_close_matches(word, dictionary, n=1, cutoff=0.6)
         if closest_word:
