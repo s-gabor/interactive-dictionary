@@ -10,23 +10,37 @@ while True:
     word = input('Enter a word("q" to exit the program): ')
     if word == 'q':
         break
-
+    output = None
     if word in dictionary:
-        print(dictionary[word])
+        pass
     elif word.capitalize() in dictionary:
-        print(dictionary[word.capitalize()])
+        word = word.capitalize()
     elif word.lower() in dictionary:
-        print(dictionary[word.lower()])
+        word = word.lower()
     elif word.upper() in dictionary:
-        print(dictionary[word.upper()])
+        word = word.upper()
     else:
         closest_word = get_close_matches(word, dictionary, n=1, cutoff=0.6)
         if closest_word:
             confirmation = input(f'I\'m not familiar with that word. Did you mean "{closest_word[0]}" instead(y/n)? ')
             if confirmation[0] in 'Yy':
-                print(dictionary[closest_word[0]])
+                word = closest_word[0]
             else:
-                print('Sorry I couldn\'t be more helpful.')
+                output = 'Sorry I couldn\'t be more helpful.'
         else:
-            print('That\'s not an english word! Try again.')
+            output = 'That\'s not an english word! Try again.'
+
+    if output:
+        print(output)
+    else:
+        output = dictionary[word]
+        if len(output) == 1:
+            print(f'\n"{word}":')
+            print(f'   {output[0]}')
+            print()
+        else:
+            print(f'\n"{word}" has multiple meanings:')
+            for i in range(1, len(output)+1):
+                print(f'   {i}.', output[i-1])
+            print()
 print('Thanks! Have a nice day.\n')
